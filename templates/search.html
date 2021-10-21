@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/static/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <title>Groupie-Tracker</title>
+
+</head>
+<body>
+    <h1 style="text-align: center; font-size: calc(1em + 2vw)">Search Result:</h1>
+    <section id="artists-list">
+    {{range .}}
+
+    <a href="/artists/{{ .ID }}"><div class="box">
+                <div class="header">
+        <h1 style="text-align: center">{{ .Name }}</h1>   <!-- how to work with index in HTML -->
+        <!-- https://html5css.ru/howto/howto_css_responsive_text.php -->
+        <!-- https://qna.habr.com/q/308760 -->
+    </div>
+            <div class="img">
+            <img src="{{ .Image }}" alt="section example">
+            </div>
+        </div>
+    </a>
+    {{end}}
+    </section>
+    <a href="/" style="text-decoration: none;">
+        <button class="btn" > Home</button>
+        </a>
+</body>
+</html>

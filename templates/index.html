@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/static/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <title>Groupie-Tracker</title>
+
+</head>
+<body>
+    <h1 style="text-align: center; font-size: calc(1em + 2vw)">Groupie Tracker</h1>
+    <div class="SearchBar">
+        <form action="/search" method="POST"><br>
+            <input class="search" autocomplete="off" id="search" type="text" name="search" list="list" placeholder="Search" required>
+            <datalist id="list">
+                {{ range .Artists }}
+                <option>{{.Name}} -> Artist</option>
+                <option>{{.CreationDate}} -> Creation Date</option>
+                {{ range $key, $value := .DatesLocations}}
+                <option>{{$key}} -> Location</option>
+                {{ end }}
+                <option>{{.FirstAlbum}} -> First Album</option>
+                {{ range .Members}}
+                <option>{{.}} -> Member</option>
+                {{end}}
+                {{end}}
+            </datalist>
+
+            <select class="selector" id="categories" name="categories">
+                    <option selected value="artist">Artist</option>
+                    <option value="member">Member</option>
+                    <option value="location">Location</option>
+                    <option value="firstAlbum">First Album</option>
+                    <option value="creationDate">Creation Date</option>
+                </select>
+                <input class="butn" id="send" value="Search" type="submit"><br><br>
+            
+        </form>
+
+        <button class="butn" id="filter">Filter</button>
+        
+    </div>
+    <div class="filterbox" id="filterbox">
+        <form action="/filter" method="post">
+        <div class="filt">
+            <!-- <label class="lab" for="creationDate">Creation Date</label> -->
+            <h4 style="margin-bottom: 4px">Creation Date:</h4>
+            <input class="inp" type="text" name="cdfrom" placeholder="From"> <input class="inp" type="text" name="cdto" placeholder="To">
+        </div>
+        <div class="filt">
+            <!-- <label class="lab" for="firstAlbum">First Album</label> -->
+            <h4 style="margin-bottom: 4px">First Album Date:</h4>
+            <input class="inp" type="text" name="fafrom" placeholder="From"> <input class="inp" type="text" name="fato" placeholder="To">
+        </div>
+        <div class="filt">
+            <!-- <label class="lab" for="members">Number of Members</label> -->
+            <h4 style="margin-bottom: 4px">Number of Members:</h4>
+            <input class="inp" type="text" name="nomfrom" placeholder="From"> <input class="inp" type="text" name="nomto" placeholder="To">
+        </div>
+        <div class="filt">
+            <!-- <label class="lab" for="members">Number of Members</label> -->
+            <h4 style="margin-bottom: 4px">Add the location:</h4>
+            <input class="inp" id="loc" type="text" name="loc" placeholder="locations's name" list="loclist">
+            <button type="button" id="add">Add</button> <button type="button" id="clear">Clear</button>
+        </div>
+        <datalist id="loclist">
+            {{ range .UniqLocations }}
+            <option value="{{ . }}">{{ . }}</option>
+            {{ end }}
+        </datalist>
+            <div class="fset">
+                    <fieldset class="field">
+                        <legend>Choose the Location</legend>
+                            {{ range .UniqLocations }}
+                            <div>
+                                <input type="checkbox" id="{{ . }}" name="location" value="{{ . }}">
+                                <label for="{{ . }}">{{ . }}</label>
+                            </div>
+                            {{end}}
+                    </fieldset>       
+                </div>
+            <input class="butn" id="fsubmit" value="Show Results" type="submit">
+        </form>
+    </div>
+
+    <section id="artists-list">
+    {{range .Artists}}
+
+    <a href="/artists/{{ .ID }}"><div class="box">
+                <div class="header">
+        <h1 style="text-align: center">{{ .Name }}</h1>   <!-- how to work with index in HTML -->
+        <!-- https://html5css.ru/howto/howto_css_responsive_text.php -->
+        <!-- https://qna.habr.com/q/308760 -->
+    </div>
+            <div class="img">
+            <img src="{{ .Image }}" alt="section example">
+            </div>
+        </div>
+    </a>
+    {{end}}
+    </section>
+    <script>document.getElementById('search').addEventListener('input', function() {
+        var inp = document.getElementById('search').value.split(" -> ");
+        if (inp[1] == "Artist") {
+            document.getElementById('categories').selectedIndex = 0;
+            document.getElementById('search').value = inp[0];
+        };
+        if (inp[1] == "Member") {
+            document.getElementById('categories').selectedIndex = 1;
+            document.getElementById('search').value = inp[0];
+        };
+        if (inp[1] == "Location") {
+            document.getElementById('categories').selectedIndex = 2;
+            document.getElementById('search').value = inp[0];
+        };
+        if (inp[1] == "First Album") {
+            document.getElementById('categories').selectedIndex = 3;
+            document.getElementById('search').value = inp[0];
+        };
+        if (inp[1] == "Creation Date") {
+            document.getElementById('categories').selectedIndex = 4;
+            document.getElementById('search').value = inp[0];
+        };
+    });
+    </script>
+    <script>
+    const targetDiv = document.getElementById("filterbox");
+    const btn = document.getElementById("filter");
+    btn.onclick = function () {
+      if (targetDiv.style.display !== "block") {
+        targetDiv.style.display = "block";
+      } else {
+        targetDiv.style.display = "none";
+      }
+    };
+    </script>
+    <script>
+        const add = document.getElementById("add");
+        const clear = document.getElementById("clear");
+        add.onclick = function () {
+            let val = document.getElementById("loc").value;
+            let inp = document.getElementById(val);
+            if (inp.value == val) {
+                inp.checked = true;
+            }
+        };
+        clear.onclick = function () {
+            const cbs = document.querySelectorAll('input[name="location"]');
+            cbs.forEach((cb) => {
+                cb.checked = false;
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+body{
+    background: rgba(198, 160, 248, 0.2);
+    color: black;
+    font-family: 'Source Sans Pro', sans-serif;
+    align-items: center;
+    
+}
+.flexible{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px
+}
+.main{
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
+    background-color:  rgba(213, 157, 250, 0.2);
+}
+.artist-card{
+    display: flex;
+justify-content: flex-start;
+align-items: stretch;
+flex-wrap: wrap;
+flex-direction: row
+
+}
+.text{
+    margin: 20px 50px
+}
+img{
+border-radius: 5px
+}
+.otherInfo{
+    display: flex;
+    flex-direction: row;
+    margin: 20px 50px;
+    box-sizing: border-box
+    
+}
+.Members{
+    width: 240px;
+    box-sizing: border-box;
+    border-right: 1px solid;
+    padding-right: 20px;
+  float: left
+  /* vertical line */
+  /* https://qna.habr.com/q/217156 */
+}
+.DatesLocations{
+    width: 65%;
+    box-sizing: border-box;
+    float: left;
+    border-left: 1px solid;
+  margin-left: -1px;
+  padding-left: 30px;
+  text-transform: capitalize;
+}
+.concerts{
+    text-transform: capitalize;
+}
+.sublabel {
+    font-weight: 100;
+    color: #b365b3
+}
+.btn {
+    background-color: #b365b3; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    display: block;
+
+    object-fit: cover;
+    margin: auto;
+}
+
+.btn:hover {
+    background-color: RoyalBlue;
+}
+/* https://html5book.ru/css-position/ */
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .flexible{
+        margin: 0px
+    }
+    #main{
+        position: absolute;              
+   top: auto;
+   left: auto;                    
+   transform: none           
+    }
+    .artist-card{
+        flex-direction: column;
+    }
+    .text{
+        margin: 20px 20px;
+    }
+    .otherInfo{
+        flex-direction: column;
+        margin: 20px 20px;
+    }
+    .Members{
+        width: auto;
+        box-sizing: border-box;
+        border-right: none;
+    padding-right: 0px;
+    }
+    .DatesLocations{
+        width: auto;
+        box-sizing: border-box;
+        border-left: none;
+  margin-left: 0px;
+  padding-left: 0px;
+    }
+}
+/* https://css-tricks.com/a-complete-guide-to-css-media-queries/ */
+/* http://htmlbook.ru/css/value/media */
+
+

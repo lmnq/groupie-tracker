@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/static/artist.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <title>Artist</title>
+  
+</head>
+<body>
+    <div class="flexible">
+        <div class="main">
+    <div class="artist-card">
+            <div class="img">
+                <img src="{{ .Image }}">
+            </div>
+            <div class="text">
+            <h1>{{ .Name}}</h1>
+                <p> <label class="sublabel"> Creation Date  </label> {{ .CreationDate}}</p>
+               <p> <label class="sublabel"> First Album </label> {{ .FirstAlbum}}</p>
+        </div>
+    </div>
+            <div class="otherInfo">
+            
+            <div class="Members">
+                    <label class="sublabel">
+                <p>Members</p>
+            </label>
+            {{ range .Members}}
+            <p>{{ . }}</p>
+            {{end}}
+            </div>
+            <div class="DatesLocations">
+                    <label class="sublabel">
+                <p>Concerts</p>
+                    </label>
+                {{ range $key, $value := .DatesLocations}}
+                <strong>{{ $key }}</strong>
+                {{ range $value}}
+                <ul> 
+                    <li><p>{{ . }}</p></li>
+            </ul>
+                {{end}}
+            {{end}}
+        </span>
+                <!-- range map -->
+                <!-- https://stackoverflow.com/questions/21302520/iterating-through-map-in-template -->
+                <!-- http://htmlbook.ru/html/li -->
+            </div>
+        </div>
+    
+  
+    </div>
+</div>
+<a href="/" style="text-decoration: none;">
+<button class="btn" > Home</button>
+</a>
+    </body>
+</html>
+ <!-- "move" shortcut - Alt and Arrow -> or another arrow -->
+<!-- http://htmlbook.ru/html/span -->
