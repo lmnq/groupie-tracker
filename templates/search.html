@@ -13,10 +13,13 @@
 </head>
 <body>
     <h1 style="text-align: center; font-size: calc(1em + 2vw)">Search Result:</h1>
+    <div class="empty" id="empty" style="display: none;">
+        <h2 style="text-align: center;">Not Found Any Artists With Those Filters</h2>
+    </div>
     <section id="artists-list">
     {{range .}}
 
-    <a href="/artists/{{ .ID }}"><div class="box">
+    <a href="/artists/{{ .ID }}"><div class="box" id="box">
                 <div class="header">
         <h1 style="text-align: center">{{ .Name }}</h1>   <!-- how to work with index in HTML -->
         <!-- https://html5css.ru/howto/howto_css_responsive_text.php -->
@@ -29,8 +32,18 @@
     </a>
     {{end}}
     </section>
-    <a href="/" style="text-decoration: none;">
-        <button class="btn" > Home</button>
-        </a>
+
+        <button onclick="document.location='/'" class="btn">Home</button>
+
 </body>
+    <script>
+        var c = 0
+        const ctr = document.getElementById("artists-list")
+        for (let i = 0; i < ctr.children.length; i++) {
+            c++
+        };
+        if (c === 0) {
+            document.getElementById("empty").style.display  = "block";
+        };
+    </script>
 </html>

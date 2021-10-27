@@ -79,6 +79,7 @@ border-radius: 5px
 }
 /* https://html5book.ru/css-position/ */
 
+
 @media only screen and (min-width: 320px) and (max-width: 480px) {
     .flexible{
         margin: 0px
